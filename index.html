@@ -10,6 +10,7 @@
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
             rel="stylesheet"
         />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
         <style>
             *,
             *::before,
@@ -20,18 +21,18 @@
             }
 
             :root {
-                --bg: #03030a;
-                --surface: #07070f;
-                --card: #0c0c18;
-                --border: #161628;
-                --border2: #1e1e35;
-                --cyan: #06b6d4;
-                --violet: #8b5cf6;
-                --green: #10b981;
+                --bg: #0d0d20;
+                --surface: #12122a;
+                --card: #181838;
+                --border: #23234a;
+                --border2: #2e2e60;
+                --cyan: #818cf8;
+                --violet: #a78bfa;
+                --green: #34d399;
                 --amber: #f59e0b;
-                --text: #e2e8f0;
-                --dim: #94a3b8;
-                --muted: #4b5a6e;
+                --text: #e8e8ff;
+                --dim: #9999cc;
+                --muted: #4a4a80;
                 --r: 12px;
                 --r2: 18px;
                 --font: "Inter", system-ui, sans-serif;
@@ -51,7 +52,7 @@
             }
 
             ::selection {
-                background: rgba(6, 182, 212, 0.2);
+                background: rgba(129, 140, 248, 0.2);
                 color: var(--text);
             }
 
@@ -160,41 +161,10 @@
                 overflow: hidden;
             }
             .hero-grid {
-                position: absolute;
-                inset: 0;
-                pointer-events: none;
-                background-image:
-                    linear-gradient(
-                        rgba(6, 182, 212, 0.035) 1px,
-                        transparent 1px
-                    ),
-                    linear-gradient(
-                        90deg,
-                        rgba(6, 182, 212, 0.035) 1px,
-                        transparent 1px
-                    );
-                background-size: 56px 56px;
-                mask-image: radial-gradient(
-                    ellipse 80% 80% at 50% 40%,
-                    black 40%,
-                    transparent 100%
-                );
+                display: none;
             }
             .hero-glow {
-                position: absolute;
-                pointer-events: none;
-                width: 700px;
-                height: 400px;
-                left: 50%;
-                top: 20%;
-                transform: translateX(-50%);
-                background: radial-gradient(
-                    ellipse,
-                    rgba(6, 182, 212, 0.09) 0%,
-                    rgba(139, 92, 246, 0.06) 50%,
-                    transparent 70%
-                );
-                filter: blur(40px);
+                display: none;
             }
 
             .hero-inner {
@@ -212,7 +182,7 @@
                 margin-bottom: 3rem;
                 overflow: hidden;
                 box-shadow:
-                    0 0 0 1px rgba(6, 182, 212, 0.06),
+                    0 0 0 1px rgba(129, 140, 248, 0.06),
                     0 25px 60px rgba(0, 0, 0, 0.7);
                 text-align: left;
             }
@@ -272,7 +242,7 @@
                 color: var(--violet);
             }
             .t-vs {
-                color: #22d3ee;
+                color: #a5b4fc;
             }
             .t-b {
                 color: var(--green);
@@ -303,15 +273,7 @@
                 margin-bottom: 0.8rem;
             }
             .hero-name .grad {
-                background: linear-gradient(
-                    130deg,
-                    var(--cyan) 10%,
-                    #818cf8 55%,
-                    var(--violet) 100%
-                );
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
+                color: var(--cyan);
             }
             .hero-sub {
                 color: var(--dim);
@@ -347,33 +309,13 @@
                 font-family: var(--font);
             }
             .btn-primary {
-                background: linear-gradient(
-                    135deg,
-                    var(--cyan) 0%,
-                    #6366f1 100%
-                );
+                background: var(--cyan);
                 color: #fff;
-                position: relative;
-                overflow: hidden;
-            }
-            .btn-primary::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    135deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.12)
-                );
-                opacity: 0;
-                transition: opacity 0.2s;
             }
             .btn-primary:hover {
+                background: #6366f1;
                 transform: translateY(-2px);
-                box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
-            }
-            .btn-primary:hover::before {
-                opacity: 1;
+                box-shadow: 0 8px 24px rgba(129, 140, 248, 0.25);
             }
             .btn-outline {
                 background: transparent;
@@ -396,8 +338,8 @@
                 font-family: var(--mono);
                 font-size: 0.69rem;
                 font-weight: 500;
-                background: rgba(6, 182, 212, 0.05);
-                border: 1px solid rgba(6, 182, 212, 0.18);
+                background: rgba(129, 140, 248, 0.05);
+                border: 1px solid rgba(129, 140, 248, 0.18);
                 color: var(--cyan);
                 padding: 0.22rem 0.6rem;
                 border-radius: 5px;
@@ -525,7 +467,7 @@
                 left: 0;
                 right: 0;
                 height: 1.5px;
-                background: linear-gradient(90deg, var(--cyan), var(--violet));
+                background: var(--cyan);
             }
             .b-num {
                 font-size: 2.1rem;
@@ -558,7 +500,7 @@
                 font-size: 1.6rem;
                 width: 3rem;
                 height: 3rem;
-                background: rgba(6, 182, 212, 0.08);
+                background: rgba(129, 140, 248, 0.08);
                 border-radius: 10px;
                 display: grid;
                 place-items: center;
@@ -625,14 +567,14 @@
                 border-radius: 4px;
             }
             .xp-badge.freelance {
-                background: rgba(6, 182, 212, 0.1);
+                background: rgba(129, 140, 248, 0.1);
                 color: var(--cyan);
-                border: 1px solid rgba(6, 182, 212, 0.2);
+                border: 1px solid rgba(129, 140, 248, 0.2);
             }
             .xp-badge.intern {
-                background: rgba(139, 92, 246, 0.1);
+                background: rgba(167, 139, 250, 0.1);
                 color: var(--violet);
-                border: 1px solid rgba(139, 92, 246, 0.2);
+                border: 1px solid rgba(167, 139, 250, 0.2);
             }
             .xp-body ul {
                 list-style: none;
@@ -676,13 +618,13 @@
                 transition: border-color 0.25s;
             }
             .featured:hover {
-                border-color: rgba(6, 182, 212, 0.35);
+                border-color: rgba(129, 140, 248, 0.35);
             }
             .featured-corner {
                 position: absolute;
                 top: 0;
                 right: 0;
-                background: linear-gradient(135deg, var(--cyan), var(--violet));
+                background: var(--cyan);
                 padding: 0.3rem 0.9rem;
                 font-size: 0.6rem;
                 font-weight: 800;
@@ -720,8 +662,8 @@
                 font-size: 0.72rem;
                 padding: 0.22rem 0.6rem;
                 border-radius: 5px;
-                background: rgba(139, 92, 246, 0.08);
-                border: 1px solid rgba(139, 92, 246, 0.2);
+                background: rgba(167, 139, 250, 0.08);
+                border: 1px solid rgba(167, 139, 250, 0.2);
                 color: var(--violet);
                 font-weight: 500;
             }
@@ -747,7 +689,7 @@
             }
             .gh-btn:hover {
                 color: var(--cyan);
-                border-color: rgba(6, 182, 212, 0.4);
+                border-color: rgba(129, 140, 248, 0.4);
             }
 
             .pg {
@@ -767,7 +709,7 @@
                     transform 0.2s;
             }
             .pc:hover {
-                border-color: rgba(6, 182, 212, 0.25);
+                border-color: rgba(129, 140, 248, 0.25);
                 transform: translateY(-3px);
             }
             .pc-head {
@@ -780,7 +722,7 @@
                 width: 2.1rem;
                 height: 2.1rem;
                 border-radius: 8px;
-                background: rgba(6, 182, 212, 0.08);
+                background: rgba(129, 140, 248, 0.08);
                 color: var(--cyan);
                 display: grid;
                 place-items: center;
@@ -807,8 +749,8 @@
                 font-size: 0.67rem;
                 padding: 0.15rem 0.45rem;
                 border-radius: 4px;
-                background: rgba(6, 182, 212, 0.05);
-                border: 1px solid rgba(6, 182, 212, 0.13);
+                background: rgba(129, 140, 248, 0.05);
+                border: 1px solid rgba(129, 140, 248, 0.13);
                 color: var(--cyan);
             }
 
@@ -847,7 +789,7 @@
                 width: 1.6rem;
                 height: 1.6rem;
                 border-radius: 5px;
-                background: rgba(6, 182, 212, 0.1);
+                background: rgba(129, 140, 248, 0.1);
                 display: grid;
                 place-items: center;
                 font-size: 0.8rem;
@@ -866,9 +808,16 @@
                 color: var(--dim);
                 transition: all 0.15s;
                 cursor: default;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+            }
+            .sk-pill i {
+                font-size: 1rem;
+                flex-shrink: 0;
             }
             .sk-pill:hover {
-                border-color: rgba(6, 182, 212, 0.3);
+                border-color: rgba(129, 140, 248, 0.3);
                 color: var(--text);
             }
 
@@ -893,14 +842,14 @@
                 transition: border-color 0.2s;
             }
             .edu-card:hover {
-                border-color: rgba(139, 92, 246, 0.3);
+                border-color: rgba(167, 139, 250, 0.3);
             }
             .edu-ico {
                 font-size: 1.6rem;
                 width: 3rem;
                 height: 3rem;
                 border-radius: 10px;
-                background: rgba(139, 92, 246, 0.1);
+                background: rgba(167, 139, 250, 0.1);
                 display: grid;
                 place-items: center;
                 flex-shrink: 0;
@@ -947,7 +896,7 @@
                 transition: border-color 0.2s;
             }
             .cert-card:hover {
-                border-color: rgba(6, 182, 212, 0.2);
+                border-color: rgba(129, 140, 248, 0.2);
             }
             .cert-pip {
                 width: 0.45rem;
@@ -974,15 +923,7 @@
                 background: var(--bg);
             }
             #contact::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                pointer-events: none;
-                background: radial-gradient(
-                    ellipse 55% 35% at 50% 100%,
-                    rgba(139, 92, 246, 0.08) 0%,
-                    transparent 70%
-                );
+                display: none;
             }
             .ct-inner {
                 max-width: 640px;
@@ -1197,7 +1138,7 @@
                     </div>
                     <div class="t-body">
                         <div class="t-row">
-                            <span class="t-p">❯</span>&nbsp;<span class="t-c"
+                            <span class="t-p">$</span>&nbsp;<span class="t-c"
                                 >cat about.json</span
                             >
                         </div>
@@ -1217,7 +1158,7 @@
                         <div class="t-row">
                             &nbsp;&nbsp;<span class="t-k">"location"</span
                             ><span class="t-o">:</span>&nbsp;<span class="t-v"
-                                >"Ankara, Turkey 🇹🇷"</span
+                                >"Ankara, Turkey"</span
                             ><span class="t-o">,</span>
                         </div>
                         <div class="t-row">
@@ -1247,7 +1188,7 @@
                         </div>
                         <div class="t-row"><span class="t-o">}</span></div>
                         <div class="t-row" style="margin-top: 0.2rem">
-                            <span class="t-p">❯</span>&nbsp;<span
+                            <span class="t-p">$</span>&nbsp;<span
                                 class="t-cursor"
                             ></span>
                         </div>
@@ -1353,9 +1294,9 @@
                             production.
                         </p>
                         <div class="about-tags">
-                            <span class="a-tag">🇹🇷 Turkish — Native</span>
-                            <span class="a-tag">🇬🇧 English — B2</span>
-                            <span class="a-tag">📍 Ankara, Turkey</span>
+                            <span class="a-tag">Turkish — Native</span>
+                            <span class="a-tag">English — B2</span>
+                            <span class="a-tag">Ankara, Turkey</span>
                         </div>
                     </div>
 
@@ -1378,7 +1319,6 @@
                         </div>
                         <div class="b-card b-wide">
                             <div class="b-wide-inner">
-                                <div class="b-wide-icon">⚡</div>
                                 <div class="b-wide-text">
                                     <h4>Currently Building</h4>
                                     <p>
@@ -1880,34 +1820,34 @@
                 <div class="sk-grid">
                     <div class="sk-card reveal">
                         <div class="sk-head">
-                            <span class="sk-head-icon">🖥</span> Frontend
+                            Frontend
                         </div>
                         <div class="sk-pills">
-                            <span class="sk-pill">Next.js</span
-                            ><span class="sk-pill">React</span>
-                            <span class="sk-pill">TypeScript</span
-                            ><span class="sk-pill">TailwindCSS</span>
-                            <span class="sk-pill">Ionic</span
-                            ><span class="sk-pill">HeroUI</span>
-                            <span class="sk-pill">Zod</span
-                            ><span class="sk-pill">React Query</span>
+                            <span class="sk-pill"><i class="devicon-nextjs-plain"></i>Next.js</span>
+                            <span class="sk-pill"><i class="devicon-react-original colored"></i>React</span>
+                            <span class="sk-pill"><i class="devicon-typescript-plain colored"></i>TypeScript</span>
+                            <span class="sk-pill"><i class="devicon-tailwindcss-original colored"></i>TailwindCSS</span>
+                            <span class="sk-pill"><i class="devicon-ionic-original colored"></i>Ionic</span>
+                            <span class="sk-pill">HeroUI</span>
+                            <span class="sk-pill">Zod</span>
+                            <span class="sk-pill">React Query</span>
                             <span class="sk-pill">React Hook Form</span>
                         </div>
                     </div>
 
                     <div class="sk-card reveal d1">
                         <div class="sk-head">
-                            <span class="sk-head-icon">⚙️</span> Backend
+                            Backend
                         </div>
                         <div class="sk-pills">
-                            <span class="sk-pill">Go</span
-                            ><span class="sk-pill">Go Fiber</span>
-                            <span class="sk-pill">Gin</span
-                            ><span class="sk-pill">Java</span>
-                            <span class="sk-pill">Spring Boot</span
-                            ><span class="sk-pill">gRPC</span>
-                            <span class="sk-pill">REST API</span
-                            ><span class="sk-pill">RabbitMQ</span>
+                            <span class="sk-pill"><i class="devicon-go-plain colored"></i>Go</span>
+                            <span class="sk-pill"><i class="devicon-go-plain colored"></i>Go Fiber</span>
+                            <span class="sk-pill"><i class="devicon-go-plain colored"></i>Gin</span>
+                            <span class="sk-pill"><i class="devicon-java-plain colored"></i>Java</span>
+                            <span class="sk-pill"><i class="devicon-spring-plain colored"></i>Spring Boot</span>
+                            <span class="sk-pill">gRPC</span>
+                            <span class="sk-pill">REST API</span>
+                            <span class="sk-pill"><i class="devicon-rabbitmq-plain colored"></i>RabbitMQ</span>
                             <span class="sk-pill">WebSocket</span>
                             <span class="sk-pill">Clean Architecture</span>
                             <span class="sk-pill">Hexagonal Architecture</span>
@@ -1916,61 +1856,59 @@
 
                     <div class="sk-card reveal d2">
                         <div class="sk-head">
-                            <span class="sk-head-icon">🗄</span> Databases
+                            Databases
                         </div>
                         <div class="sk-pills">
-                            <span class="sk-pill">MongoDB</span
-                            ><span class="sk-pill">PostgreSQL</span>
-                            <span class="sk-pill">Redis</span
-                            ><span class="sk-pill">Firestore</span>
-                            <span class="sk-pill">Supabase</span
-                            ><span class="sk-pill">MS SQL Server</span>
+                            <span class="sk-pill"><i class="devicon-mongodb-plain colored"></i>MongoDB</span>
+                            <span class="sk-pill"><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+                            <span class="sk-pill"><i class="devicon-redis-plain colored"></i>Redis</span>
+                            <span class="sk-pill"><i class="devicon-firebase-plain colored"></i>Firestore</span>
+                            <span class="sk-pill"><i class="devicon-supabase-plain colored"></i>Supabase</span>
+                            <span class="sk-pill"><i class="devicon-microsoftsqlserver-plain colored"></i>MS SQL Server</span>
                         </div>
                     </div>
 
                     <div class="sk-card reveal">
                         <div class="sk-head">
-                            <span class="sk-head-icon">🔐</span> Auth &amp;
-                            Security
+                            Auth &amp; Security
                         </div>
                         <div class="sk-pills">
-                            <span class="sk-pill">JWT</span
-                            ><span class="sk-pill">Session Auth</span>
-                            <span class="sk-pill">Firebase Auth</span
-                            ><span class="sk-pill">Supabase Auth</span>
-                            <span class="sk-pill">HashiCorp Vault</span
-                            ><span class="sk-pill">API Keys</span>
+                            <span class="sk-pill">JWT</span>
+                            <span class="sk-pill">Session Auth</span>
+                            <span class="sk-pill"><i class="devicon-firebase-plain colored"></i>Firebase Auth</span>
+                            <span class="sk-pill"><i class="devicon-supabase-plain colored"></i>Supabase Auth</span>
+                            <span class="sk-pill">HashiCorp Vault</span>
+                            <span class="sk-pill">API Keys</span>
                         </div>
                     </div>
 
                     <div class="sk-card reveal d1">
                         <div class="sk-head">
-                            <span class="sk-head-icon">⛓</span> Web3
+                            Web3
                         </div>
                         <div class="sk-pills">
-                            <span class="sk-pill">Solidity</span
-                            ><span class="sk-pill">Smart Contracts</span>
-                            <span class="sk-pill">Wallet Connect</span
-                            ><span class="sk-pill">Pinata / IPFS</span>
-                            <span class="sk-pill">Mande Network</span
-                            ><span class="sk-pill">EVM</span>
+                            <span class="sk-pill"><i class="devicon-solidity-plain"></i>Solidity</span>
+                            <span class="sk-pill">Smart Contracts</span>
+                            <span class="sk-pill">Wallet Connect</span>
+                            <span class="sk-pill">Pinata / IPFS</span>
+                            <span class="sk-pill">Mande Network</span>
+                            <span class="sk-pill">EVM</span>
                         </div>
                     </div>
 
                     <div class="sk-card reveal d2">
                         <div class="sk-head">
-                            <span class="sk-head-icon">🛠</span> DevOps &amp;
-                            Tools
+                            DevOps &amp; Tools
                         </div>
                         <div class="sk-pills">
-                            <span class="sk-pill">Docker</span
-                            ><span class="sk-pill">Docker Compose</span>
-                            <span class="sk-pill">Git</span
-                            ><span class="sk-pill">Linux</span>
-                            <span class="sk-pill">Vercel</span
-                            ><span class="sk-pill">Swagger/OpenAPI</span>
-                            <span class="sk-pill">Google Maps API</span
-                            ><span class="sk-pill">Ngrok</span>
+                            <span class="sk-pill"><i class="devicon-docker-plain colored"></i>Docker</span>
+                            <span class="sk-pill"><i class="devicon-docker-plain colored"></i>Docker Compose</span>
+                            <span class="sk-pill"><i class="devicon-git-plain colored"></i>Git</span>
+                            <span class="sk-pill"><i class="devicon-linux-plain colored"></i>Linux</span>
+                            <span class="sk-pill"><i class="devicon-vercel-plain"></i>Vercel</span>
+                            <span class="sk-pill"><i class="devicon-swagger-plain colored"></i>Swagger</span>
+                            <span class="sk-pill"><i class="devicon-google-plain colored"></i>Google Maps API</span>
+                            <span class="sk-pill">Ngrok</span>
                         </div>
                     </div>
                 </div>
@@ -1987,16 +1925,14 @@
 
                 <div class="edu-row">
                     <div class="edu-card reveal">
-                        <div class="edu-ico">💻</div>
-                        <div>
+                                                <div>
                             <div class="edu-degree">Computer Programming</div>
                             <div class="edu-school">Ankara University</div>
                             <div class="edu-period">2023 — Present</div>
                         </div>
                     </div>
                     <div class="edu-card reveal d1">
-                        <div class="edu-ico">⚙️</div>
-                        <div>
+                                                <div>
                             <div class="edu-degree">Mechanical Engineering</div>
                             <div class="edu-school">Gazi University</div>
                             <div class="edu-period">2019 — Present</div>
