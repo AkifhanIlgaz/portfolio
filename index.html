@@ -1,833 +1,2189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mehmet Akifhan Ilgaz — Fullstack Developer</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Akifhan Ilgaz — Fullstack Developer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
 
-    :root {
-      --bg:       #0d0f14;
-      --surface:  #13161e;
-      --card:     #1a1d27;
-      --border:   #252837;
-      --accent:   #7c6af7;
-      --accent2:  #5eead4;
-      --text:     #e2e4ef;
-      --muted:    #8b90a7;
-      --radius:   12px;
-    }
+            :root {
+                --bg: #03030a;
+                --surface: #07070f;
+                --card: #0c0c18;
+                --border: #161628;
+                --border2: #1e1e35;
+                --cyan: #06b6d4;
+                --violet: #8b5cf6;
+                --green: #10b981;
+                --amber: #f59e0b;
+                --text: #e2e8f0;
+                --dim: #94a3b8;
+                --muted: #4b5a6e;
+                --r: 12px;
+                --r2: 18px;
+                --font: "Inter", system-ui, sans-serif;
+                --mono: "JetBrains Mono", "Fira Code", monospace;
+            }
 
-    html { scroll-behavior: smooth; }
+            html {
+                scroll-behavior: smooth;
+            }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(13,15,20,.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo { font-weight: 700; font-size: 1.1rem; letter-spacing: .5px; }
-    .nav-logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: .9rem;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--text); }
+            ::selection {
+                background: rgba(6, 182, 212, 0.2);
+                color: var(--text);
+            }
 
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 6rem 2rem 4rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 20%, rgba(124,106,247,.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-inner { max-width: 720px; position: relative; }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(124,106,247,.15);
-      border: 1px solid rgba(124,106,247,.35);
-      color: var(--accent); font-size: .8rem; font-weight: 600;
-      padding: .35rem .9rem; border-radius: 99px; margin-bottom: 1.5rem;
-      letter-spacing: .8px; text-transform: uppercase;
-    }
-    .hero-name {
-      font-size: clamp(2.4rem, 7vw, 4.2rem);
-      font-weight: 800; line-height: 1.1; letter-spacing: -1px;
-      margin-bottom: .6rem;
-    }
-    .hero-name .highlight {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-sub {
-      color: var(--muted); font-size: 1.1rem; max-width: 560px;
-      margin: 0 auto 2.5rem;
-    }
-    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .7rem 1.6rem; border-radius: var(--radius);
-      font-size: .9rem; font-weight: 600; text-decoration: none;
-      transition: all .2s; cursor: pointer; border: none;
-    }
-    .btn-primary {
-      background: var(--accent); color: #fff;
-    }
-    .btn-primary:hover { background: #6a59e0; transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: var(--bg);
+            }
+            ::-webkit-scrollbar-thumb {
+                background: var(--border2);
+                border-radius: 99px;
+            }
 
-    /* ─── CV ─── */
-    .cv-row {
-      display: flex; gap: .75rem; justify-content: center;
-      flex-wrap: wrap; margin-top: .8rem;
-    }
-    .cv-label {
-      width: 100%; text-align: center;
-      font-size: .72rem; font-weight: 600; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--muted); margin-bottom: -.1rem;
-    }
-    .btn-cv {
-      display: inline-flex; align-items: center; gap: .45rem;
-      padding: .55rem 1.2rem; border-radius: var(--radius);
-      font-size: .82rem; font-weight: 600; text-decoration: none;
-      border: 1px solid var(--border); color: var(--muted);
-      background: rgba(255,255,255,.03);
-      transition: all .2s;
-    }
-    .btn-cv:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-1px); }
-    .btn-cv svg { flex-shrink: 0; }
+            /* ─── NAV ─── */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 300;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 2.5rem;
+                background: rgba(3, 3, 10, 0.75);
+                backdrop-filter: blur(24px) saturate(1.4);
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-brand {
+                font-family: var(--mono);
+                font-size: 0.88rem;
+                font-weight: 600;
+                color: var(--text);
+            }
+            .nav-brand em {
+                color: var(--cyan);
+                font-style: normal;
+            }
+            .nav-brand span {
+                color: var(--muted);
+            }
 
-    .scroll-hint {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      color: var(--muted); font-size: .78rem; display: flex;
-      flex-direction: column; align-items: center; gap: .4rem; animation: bounce 2s infinite;
-    }
-    .scroll-arrow { width: 18px; height: 18px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); }
-    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+            .nav-links {
+                display: flex;
+                gap: 2.2rem;
+                list-style: none;
+            }
+            .nav-links a {
+                font-size: 0.8rem;
+                font-weight: 500;
+                letter-spacing: 0.2px;
+                color: var(--dim);
+                text-decoration: none;
+                transition: color 0.2s;
+                position: relative;
+                padding-bottom: 2px;
+            }
+            .nav-links a::after {
+                content: "";
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background: var(--cyan);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.25s ease;
+            }
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text);
+            }
+            .nav-links a.active::after,
+            .nav-links a:hover::after {
+                transform: scaleX(1);
+            }
 
-    /* ─── SECTIONS ─── */
-    section { padding: 5rem 2rem; }
-    .container { max-width: 1000px; margin: 0 auto; }
-    .section-label {
-      display: flex; align-items: center; gap: .8rem;
-      color: var(--accent); font-size: .78rem; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; margin-bottom: .6rem;
-    }
-    .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
-    h2.section-title { font-size: 2rem; font-weight: 800; margin-bottom: 3rem; }
+            .nav-toggle {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.3rem;
+            }
+            .nav-toggle span {
+                display: block;
+                width: 20px;
+                height: 2px;
+                background: var(--dim);
+                border-radius: 2px;
+                transition: 0.2s;
+            }
 
-    /* fade-in on scroll */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+            /* ─── HERO ─── */
+            #hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 7rem 2rem 5rem;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero-grid {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-image:
+                    linear-gradient(
+                        rgba(6, 182, 212, 0.035) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(6, 182, 212, 0.035) 1px,
+                        transparent 1px
+                    );
+                background-size: 56px 56px;
+                mask-image: radial-gradient(
+                    ellipse 80% 80% at 50% 40%,
+                    black 40%,
+                    transparent 100%
+                );
+            }
+            .hero-glow {
+                position: absolute;
+                pointer-events: none;
+                width: 700px;
+                height: 400px;
+                left: 50%;
+                top: 20%;
+                transform: translateX(-50%);
+                background: radial-gradient(
+                    ellipse,
+                    rgba(6, 182, 212, 0.09) 0%,
+                    rgba(139, 92, 246, 0.06) 50%,
+                    transparent 70%
+                );
+                filter: blur(40px);
+            }
 
-    /* ─── ABOUT / STATS ─── */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: .97rem; }
-    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .stat-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.4rem;
-      text-align: center;
-    }
-    .stat-card .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
-    .stat-card .label { color: var(--muted); font-size: .82rem; margin-top: .2rem; }
+            .hero-inner {
+                max-width: 820px;
+                width: 100%;
+                position: relative;
+                text-align: center;
+            }
 
-    /* ─── EXPERIENCE ─── */
-    .timeline { position: relative; }
-    .timeline::before {
-      content: ''; position: absolute; left: 1.1rem; top: 0; bottom: 0;
-      width: 2px; background: var(--border);
-    }
-    .tl-item { display: flex; gap: 2rem; margin-bottom: 2.5rem; position: relative; }
-    .tl-dot {
-      width: 1.4rem; height: 1.4rem; border-radius: 50%;
-      background: var(--accent); border: 3px solid var(--bg);
-      flex-shrink: 0; margin-top: .3rem; position: relative; z-index: 1;
-    }
-    .tl-body { flex: 1; }
-    .tl-header { display: flex; flex-wrap: wrap; gap: .6rem; align-items: baseline; margin-bottom: .4rem; }
-    .tl-role { font-size: 1.05rem; font-weight: 700; }
-    .tl-company { color: var(--accent2); font-size: .9rem; font-weight: 600; }
-    .tl-date { color: var(--muted); font-size: .8rem; margin-left: auto; }
-    .tl-body ul { list-style: none; padding: 0; }
-    .tl-body li {
-      color: var(--muted); font-size: .88rem; padding: .3rem 0 .3rem 1.2rem;
-      position: relative;
-    }
-    .tl-body li::before {
-      content: '▸'; position: absolute; left: 0; color: var(--accent);
-    }
+            /* Terminal */
+            .terminal {
+                background: #08080f;
+                border: 1px solid var(--border2);
+                border-radius: var(--r2);
+                margin-bottom: 3rem;
+                overflow: hidden;
+                box-shadow:
+                    0 0 0 1px rgba(6, 182, 212, 0.06),
+                    0 25px 60px rgba(0, 0, 0, 0.7);
+                text-align: left;
+            }
+            .t-bar {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.75rem 1.1rem;
+                background: #0a0a14;
+                border-bottom: 1px solid var(--border);
+            }
+            .t-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+            .t-dot.r {
+                background: #ff5f57;
+            }
+            .t-dot.y {
+                background: #febc2e;
+            }
+            .t-dot.g {
+                background: #28c840;
+            }
+            .t-title {
+                font-family: var(--mono);
+                font-size: 0.68rem;
+                color: var(--muted);
+                margin-left: 0.6rem;
+            }
+            .t-body {
+                padding: 1.3rem 1.6rem;
+                font-family: var(--mono);
+                font-size: 0.8rem;
+                line-height: 2.1;
+            }
+            .t-row {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+            .t-p {
+                color: var(--green);
+                user-select: none;
+            }
+            .t-c {
+                color: var(--text);
+            }
+            .t-o {
+                color: var(--dim);
+            }
+            .t-k {
+                color: var(--cyan);
+            }
+            .t-v {
+                color: var(--violet);
+            }
+            .t-vs {
+                color: #22d3ee;
+            }
+            .t-b {
+                color: var(--green);
+            }
+            .t-cursor {
+                display: inline-block;
+                width: 8px;
+                height: 0.85em;
+                background: var(--cyan);
+                vertical-align: middle;
+                animation: blink 1s step-end infinite;
+            }
+            @keyframes blink {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+            }
 
-    /* ─── PROJECTS ─── */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.4rem; }
-    .project-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.6rem;
-      display: flex; flex-direction: column;
-      transition: border-color .2s, transform .2s;
-    }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .8rem; }
-    .project-icon {
-      width: 2.4rem; height: 2.4rem; border-radius: 8px;
-      background: rgba(124,106,247,.15); display: grid; place-items: center;
-      font-size: 1.1rem;
-    }
-    .project-links { display: flex; gap: .5rem; }
-    .project-links a {
-      color: var(--muted); text-decoration: none; font-size: .8rem;
-      padding: .25rem .6rem; border: 1px solid var(--border); border-radius: 6px;
-      transition: all .2s;
-    }
-    .project-links a:hover { color: var(--accent); border-color: var(--accent); }
-    .project-name { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
-    .project-desc { color: var(--muted); font-size: .85rem; flex: 1; margin-bottom: 1rem; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .tag {
-      background: rgba(94,234,212,.08); border: 1px solid rgba(94,234,212,.2);
-      color: var(--accent2); font-size: .72rem; padding: .2rem .55rem;
-      border-radius: 99px; font-weight: 500;
-    }
+            .hero-name {
+                font-size: clamp(2.8rem, 6.5vw, 5rem);
+                font-weight: 900;
+                letter-spacing: -2.5px;
+                line-height: 1.04;
+                margin-bottom: 0.8rem;
+            }
+            .hero-name .grad {
+                background: linear-gradient(
+                    130deg,
+                    var(--cyan) 10%,
+                    #818cf8 55%,
+                    var(--violet) 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .hero-sub {
+                color: var(--dim);
+                font-size: 1.05rem;
+                line-height: 1.7;
+                max-width: 600px;
+                margin: 0 auto 2.8rem;
+            }
+            .hero-sub strong {
+                color: var(--dim);
+                font-weight: 600;
+            }
 
-    /* ─── SKILLS ─── */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.4rem; }
-    .skill-group {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.4rem;
-    }
-    .skill-group-title {
-      font-size: .75rem; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
-    }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
-    .skill-tag {
-      background: rgba(255,255,255,.05); border: 1px solid var(--border);
-      color: var(--text); font-size: .8rem; padding: .3rem .7rem;
-      border-radius: 6px; transition: all .2s;
-      display: inline-flex; align-items: center; gap: .35rem;
-    }
-    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
-    .skill-tag i { font-size: 1rem; }
+            .hero-btns {
+                display: flex;
+                gap: 0.8rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 2.2rem;
+            }
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                padding: 0.68rem 1.5rem;
+                border-radius: var(--r);
+                font-size: 0.86rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.2s;
+                cursor: pointer;
+                border: none;
+                font-family: var(--font);
+            }
+            .btn-primary {
+                background: linear-gradient(
+                    135deg,
+                    var(--cyan) 0%,
+                    #6366f1 100%
+                );
+                color: #fff;
+                position: relative;
+                overflow: hidden;
+            }
+            .btn-primary::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    135deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.12)
+                );
+                opacity: 0;
+                transition: opacity 0.2s;
+            }
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
+            }
+            .btn-primary:hover::before {
+                opacity: 1;
+            }
+            .btn-outline {
+                background: transparent;
+                color: var(--dim);
+                border: 1px solid var(--border2);
+            }
+            .btn-outline:hover {
+                border-color: var(--cyan);
+                color: var(--cyan);
+                transform: translateY(-2px);
+            }
 
-    /* ─── EDUCATION ─── */
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
-    .edu-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.6rem;
-    }
-    .edu-degree { font-size: 1rem; font-weight: 700; margin-bottom: .3rem; }
-    .edu-school { color: var(--accent2); font-size: .9rem; margin-bottom: .3rem; }
-    .edu-period { color: var(--muted); font-size: .82rem; }
+            .hero-pills {
+                display: flex;
+                gap: 0.5rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .h-pill {
+                font-family: var(--mono);
+                font-size: 0.69rem;
+                font-weight: 500;
+                background: rgba(6, 182, 212, 0.05);
+                border: 1px solid rgba(6, 182, 212, 0.18);
+                color: var(--cyan);
+                padding: 0.22rem 0.6rem;
+                border-radius: 5px;
+            }
 
-    /* ─── CERTS ─── */
-    .cert-list { display: flex; flex-direction: column; gap: .8rem; }
-    .cert-item {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1rem 1.4rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .cert-icon { font-size: 1.3rem; }
-    .cert-name { font-size: .9rem; font-weight: 600; }
-    .cert-by { color: var(--muted); font-size: .8rem; margin-top: .15rem; }
+            /* ─── SECTION COMMONS ─── */
+            section {
+                padding: 6rem 2rem;
+            }
+            .container {
+                max-width: 1060px;
+                margin: 0 auto;
+            }
+            .s-head {
+                margin-bottom: 3.5rem;
+            }
+            .s-kicker {
+                font-family: var(--mono);
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                color: var(--cyan);
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                margin-bottom: 0.55rem;
+            }
+            .s-kicker::before {
+                content: "//";
+                color: var(--violet);
+                font-size: 0.72rem;
+            }
+            h2.s-title {
+                font-size: clamp(1.9rem, 4vw, 2.6rem);
+                font-weight: 800;
+                letter-spacing: -1.2px;
+                line-height: 1.1;
+            }
+            h2.s-title em {
+                color: var(--cyan);
+                font-style: normal;
+            }
 
-    /* ─── CONTACT ─── */
-    #contact { background: var(--surface); }
-    .contact-inner { max-width: 600px; margin: 0 auto; text-align: center; }
-    .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
-    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
-    .contact-link {
-      display: flex; align-items: center; gap: .6rem;
-      background: var(--card); border: 1px solid var(--border);
-      color: var(--text); text-decoration: none;
-      padding: .75rem 1.4rem; border-radius: var(--radius);
-      font-size: .88rem; font-weight: 500; transition: all .2s;
-    }
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .contact-link svg { width: 16px; height: 16px; }
+            /* Reveal animation */
+            .reveal {
+                opacity: 0;
+                transform: translateY(26px);
+                transition:
+                    opacity 0.65s ease,
+                    transform 0.65s ease;
+            }
+            .reveal.visible {
+                opacity: 1;
+                transform: none;
+            }
+            .d1 {
+                transition-delay: 0.08s;
+            }
+            .d2 {
+                transition-delay: 0.16s;
+            }
+            .d3 {
+                transition-delay: 0.24s;
+            }
+            .d4 {
+                transition-delay: 0.32s;
+            }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--bg); border-top: 1px solid var(--border);
-      text-align: center; padding: 1.5rem;
-      color: var(--muted); font-size: .82rem;
-    }
+            /* ─── ABOUT ─── */
+            #about {
+                background: var(--surface);
+            }
+            .about-wrap {
+                display: grid;
+                grid-template-columns: 1.2fr 1fr;
+                gap: 3.5rem;
+                align-items: start;
+            }
+            .about-copy p {
+                color: var(--dim);
+                font-size: 0.97rem;
+                line-height: 1.85;
+                margin-bottom: 1.1rem;
+            }
+            .about-copy p strong {
+                color: var(--text);
+                font-weight: 600;
+            }
+            .about-tags {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                margin-top: 1.8rem;
+            }
+            .a-tag {
+                font-family: var(--mono);
+                font-size: 0.74rem;
+                background: var(--card);
+                border: 1px solid var(--border2);
+                color: var(--dim);
+                padding: 0.28rem 0.7rem;
+                border-radius: 6px;
+            }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 680px) {
-      nav { padding: .9rem 1.2rem; }
-      .nav-links { gap: 1rem; }
-      .nav-links a { font-size: .82rem; }
-      .about-grid, .edu-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr 1fr; }
-      section { padding: 3.5rem 1.2rem; }
-    }
-    @media (max-width: 480px) {
-      .nav-links { display: none; }
-      h2.section-title { font-size: 1.6rem; }
-    }
-  </style>
-</head>
-<body>
+            /* Bento */
+            .bento {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto auto;
+                gap: 0.75rem;
+            }
+            .b-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--r);
+                padding: 1.4rem;
+                position: relative;
+                overflow: hidden;
+            }
+            .b-card::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 1.5px;
+                background: linear-gradient(90deg, var(--cyan), var(--violet));
+            }
+            .b-num {
+                font-size: 2.1rem;
+                font-weight: 800;
+                color: var(--text);
+                line-height: 1;
+                font-family: var(--mono);
+            }
+            .b-num sup {
+                font-size: 0.9rem;
+                color: var(--cyan);
+                vertical-align: super;
+            }
+            .b-label {
+                color: var(--muted);
+                font-size: 0.76rem;
+                margin-top: 0.35rem;
+                font-weight: 500;
+                letter-spacing: 0.2px;
+            }
+            .b-wide {
+                grid-column: span 2;
+            }
+            .b-wide-inner {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+            .b-wide-icon {
+                font-size: 1.6rem;
+                width: 3rem;
+                height: 3rem;
+                background: rgba(6, 182, 212, 0.08);
+                border-radius: 10px;
+                display: grid;
+                place-items: center;
+                flex-shrink: 0;
+            }
+            .b-wide-text h4 {
+                font-size: 0.9rem;
+                font-weight: 700;
+                margin-bottom: 0.2rem;
+            }
+            .b-wide-text p {
+                font-size: 0.78rem;
+                color: var(--muted);
+            }
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">AKİF<span>HAN</span></div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+            /* ─── EXPERIENCE ─── */
+            .xp-list {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .xp-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--r2);
+                padding: 2rem;
+                display: grid;
+                grid-template-columns: 220px 1fr;
+                gap: 2rem;
+                transition: border-color 0.2s;
+            }
+            .xp-card:hover {
+                border-color: var(--border2);
+            }
+            .xp-meta {
+                border-right: 1px solid var(--border);
+                padding-right: 2rem;
+            }
+            .xp-date {
+                font-family: var(--mono);
+                font-size: 0.7rem;
+                color: var(--muted);
+                letter-spacing: 0.5px;
+                margin-bottom: 0.7rem;
+            }
+            .xp-role {
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.3rem;
+            }
+            .xp-company {
+                color: var(--cyan);
+                font-size: 0.88rem;
+                font-weight: 600;
+            }
+            .xp-badge {
+                display: inline-block;
+                margin-top: 0.8rem;
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                padding: 0.2rem 0.55rem;
+                border-radius: 4px;
+            }
+            .xp-badge.freelance {
+                background: rgba(6, 182, 212, 0.1);
+                color: var(--cyan);
+                border: 1px solid rgba(6, 182, 212, 0.2);
+            }
+            .xp-badge.intern {
+                background: rgba(139, 92, 246, 0.1);
+                color: var(--violet);
+                border: 1px solid rgba(139, 92, 246, 0.2);
+            }
+            .xp-body ul {
+                list-style: none;
+            }
+            .xp-body li {
+                color: var(--dim);
+                font-size: 0.88rem;
+                padding: 0.35rem 0 0.35rem 1.3rem;
+                position: relative;
+                border-bottom: 1px solid var(--border);
+                line-height: 1.6;
+            }
+            .xp-body li:last-child {
+                border-bottom: none;
+            }
+            .xp-body li::before {
+                content: "▸";
+                position: absolute;
+                left: 0;
+                color: var(--cyan);
+                font-size: 0.8rem;
+                top: 0.45rem;
+            }
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">Available for opportunities</div>
-    <h1 class="hero-name">
-      Mehmet <span class="highlight">Akifhan</span> Ilgaz
-    </h1>
-    <p class="hero-sub">
-      Fullstack Developer crafting scalable web applications with Go, TypeScript & Next.js.
-      Building production-grade APIs, real-time systems, and Web3 platforms.
-    </p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
-        View Projects
-      </a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
-    </div>
-    <div class="cv-row">
-      <span class="cv-label">Resume / CV</span>
-      <a href="cv-en.pdf" target="_blank" class="btn-cv">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-        English CV
-      </a>
-      <a href="cv-tr.pdf" target="_blank" class="btn-cv">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-        Türkçe CV
-      </a>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <span>scroll</span>
-    <div class="scroll-arrow"></div>
-  </div>
-</section>
+            /* ─── PROJECTS ─── */
+            #projects {
+                background: var(--surface);
+            }
+            .featured {
+                background: var(--card);
+                border: 1px solid var(--border2);
+                border-radius: var(--r2);
+                padding: 2.2rem;
+                margin-bottom: 1.5rem;
+                display: grid;
+                grid-template-columns: 1fr 160px;
+                gap: 2rem;
+                align-items: start;
+                position: relative;
+                overflow: hidden;
+                transition: border-color 0.25s;
+            }
+            .featured:hover {
+                border-color: rgba(6, 182, 212, 0.35);
+            }
+            .featured-corner {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--cyan), var(--violet));
+                padding: 0.3rem 0.9rem;
+                font-size: 0.6rem;
+                font-weight: 800;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: #fff;
+                border-bottom-left-radius: var(--r);
+            }
+            .f-kicker {
+                font-family: var(--mono);
+                font-size: 0.68rem;
+                color: var(--cyan);
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 0.55rem;
+            }
+            .f-name {
+                font-size: 1.5rem;
+                font-weight: 800;
+                letter-spacing: -0.5px;
+                margin-bottom: 0.8rem;
+            }
+            .f-desc {
+                color: var(--dim);
+                font-size: 0.9rem;
+                line-height: 1.75;
+                margin-bottom: 1.3rem;
+            }
+            .f-tags {
+                display: flex;
+                gap: 0.4rem;
+                flex-wrap: wrap;
+            }
+            .f-tag {
+                font-size: 0.72rem;
+                padding: 0.22rem 0.6rem;
+                border-radius: 5px;
+                background: rgba(139, 92, 246, 0.08);
+                border: 1px solid rgba(139, 92, 246, 0.2);
+                color: var(--violet);
+                font-weight: 500;
+            }
+            .f-links {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                align-self: start;
+            }
+            .gh-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: var(--dim);
+                border: 1px solid var(--border2);
+                padding: 0.5rem 0.9rem;
+                border-radius: 8px;
+                transition: all 0.2s;
+                white-space: nowrap;
+            }
+            .gh-btn:hover {
+                color: var(--cyan);
+                border-color: rgba(6, 182, 212, 0.4);
+            }
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container reveal">
-    <div class="section-label">01 &nbsp; About</div>
-    <h2 class="section-title">Who I Am</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          I'm a Fullstack Developer based in Ankara, Turkey, with hands-on experience building
-          scalable web applications using <strong>Go</strong>, <strong>Java/Spring Boot</strong>,
-          <strong>TypeScript</strong>, and <strong>Next.js/React</strong>.
-        </p>
-        <p>
-          I've worked extensively with databases and infrastructure tools including MongoDB,
-          PostgreSQL, Redis, Supabase and Firebase — implementing everything from caching
-          layers to real-time features and authentication systems.
-        </p>
-        <p>
-          Beyond the backend, I'm interested in the Web3 space and have written and deployed
-          smart contracts on the Mande Network using Solidity. I enjoy solving complex
-          architecture problems and delivering production-quality solutions.
-        </p>
-      </div>
-      <div class="stats">
-        <div class="stat-card">
-          <div class="num">118+</div>
-          <div class="label">GitHub Repos</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">2+</div>
-          <div class="label">Years Experience</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">7+</div>
-          <div class="label">Projects Shipped</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">10+</div>
-          <div class="label">Technologies</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+            .pg {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
+                gap: 1.1rem;
+            }
+            .pc {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--r);
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                transition:
+                    border-color 0.2s,
+                    transform 0.2s;
+            }
+            .pc:hover {
+                border-color: rgba(6, 182, 212, 0.25);
+                transform: translateY(-3px);
+            }
+            .pc-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 0.8rem;
+            }
+            .pc-icon {
+                width: 2.1rem;
+                height: 2.1rem;
+                border-radius: 8px;
+                background: rgba(6, 182, 212, 0.08);
+                color: var(--cyan);
+                display: grid;
+                place-items: center;
+                flex-shrink: 0;
+            }
+            .pc-name {
+                font-size: 0.95rem;
+                font-weight: 700;
+                margin-bottom: 0.45rem;
+            }
+            .pc-desc {
+                color: var(--muted);
+                font-size: 0.83rem;
+                flex: 1;
+                margin-bottom: 1rem;
+                line-height: 1.65;
+            }
+            .pc-tags {
+                display: flex;
+                gap: 0.3rem;
+                flex-wrap: wrap;
+            }
+            .pc-tag {
+                font-size: 0.67rem;
+                padding: 0.15rem 0.45rem;
+                border-radius: 4px;
+                background: rgba(6, 182, 212, 0.05);
+                border: 1px solid rgba(6, 182, 212, 0.13);
+                color: var(--cyan);
+            }
 
-<!-- EXPERIENCE -->
-<section id="experience" style="background: var(--surface);">
-  <div class="container reveal">
-    <div class="section-label">02 &nbsp; Experience</div>
-    <h2 class="section-title">Work History</h2>
-    <div class="timeline">
+            /* ─── SKILLS ─── */
+            .sk-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.1rem;
+            }
+            .sk-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--r);
+                padding: 1.4rem;
+                transition:
+                    border-color 0.2s,
+                    background 0.2s;
+            }
+            .sk-card:hover {
+                border-color: var(--border2);
+                background: var(--card);
+            }
+            .sk-head {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-family: var(--mono);
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 1.8px;
+                text-transform: uppercase;
+                color: var(--cyan);
+                margin-bottom: 1rem;
+            }
+            .sk-head-icon {
+                width: 1.6rem;
+                height: 1.6rem;
+                border-radius: 5px;
+                background: rgba(6, 182, 212, 0.1);
+                display: grid;
+                place-items: center;
+                font-size: 0.8rem;
+            }
+            .sk-pills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+            }
+            .sk-pill {
+                font-size: 0.78rem;
+                padding: 0.27rem 0.65rem;
+                border-radius: 6px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--border);
+                color: var(--dim);
+                transition: all 0.15s;
+                cursor: default;
+            }
+            .sk-pill:hover {
+                border-color: rgba(6, 182, 212, 0.3);
+                color: var(--text);
+            }
 
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <div class="tl-header">
-            <span class="tl-role">Freelance Fullstack Web3 Developer</span>
-            <span class="tl-company">Mande Network</span>
-            <span class="tl-date">Mar 2023 – Jun 2023</span>
-          </div>
-          <ul>
-            <li>Built a platform where users connect Web3 wallets to publish blog posts and create token staking listings.</li>
-            <li>Stored media assets on Pinata/IPFS for decentralized storage.</li>
-            <li>Wrote and deployed smart contracts on Mande Network using Solidity.</li>
-            <li>Implemented wallet connection, on-chain read/write operations, and staking workflows.</li>
-            <li>Developed the frontend with Next.js and React.</li>
-          </ul>
-        </div>
-      </div>
+            /* ─── EDUCATION ─── */
+            #education {
+                background: var(--surface);
+            }
+            .edu-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+                margin-bottom: 2.8rem;
+            }
+            .edu-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--r);
+                padding: 1.7rem;
+                display: flex;
+                gap: 1.2rem;
+                align-items: center;
+                transition: border-color 0.2s;
+            }
+            .edu-card:hover {
+                border-color: rgba(139, 92, 246, 0.3);
+            }
+            .edu-ico {
+                font-size: 1.6rem;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 10px;
+                background: rgba(139, 92, 246, 0.1);
+                display: grid;
+                place-items: center;
+                flex-shrink: 0;
+            }
+            .edu-degree {
+                font-size: 0.97rem;
+                font-weight: 700;
+                margin-bottom: 0.2rem;
+            }
+            .edu-school {
+                color: var(--violet);
+                font-size: 0.84rem;
+                font-weight: 600;
+                margin-bottom: 0.2rem;
+            }
+            .edu-period {
+                font-family: var(--mono);
+                font-size: 0.73rem;
+                color: var(--muted);
+            }
 
-      <div class="tl-item">
-        <div class="tl-dot" style="background: var(--accent2);"></div>
-        <div class="tl-body">
-          <div class="tl-header">
-            <span class="tl-role">Voluntary Intern</span>
-            <span class="tl-company">KEYDATA Bilgi Teknolojileri</span>
-            <span class="tl-date">Jul 2023 – Jan 2024</span>
-          </div>
-          <ul>
-            <li>Developed a mobile-first application using Firebase Auth, Firestore, Firebase Storage, and Google Maps API.</li>
-            <li>Integrated map-based location features, user authentication, and real-time data management with Ionic + React.</li>
-            <li>Built a responsive, performant mobile-friendly frontend.</li>
-            <li>Developed a Revenue Module to digitize the revenue management process for an airport client.</li>
-          </ul>
-        </div>
-      </div>
+            .cert-section-title {
+                font-family: var(--mono);
+                font-size: 0.68rem;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--muted);
+                margin-bottom: 1rem;
+            }
+            .cert-row {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            .cert-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--r);
+                padding: 1rem 1.2rem;
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                transition: border-color 0.2s;
+            }
+            .cert-card:hover {
+                border-color: rgba(6, 182, 212, 0.2);
+            }
+            .cert-pip {
+                width: 0.45rem;
+                height: 0.45rem;
+                border-radius: 50%;
+                background: var(--cyan);
+                flex-shrink: 0;
+                margin-top: 0.42rem;
+            }
+            .cert-name {
+                font-size: 0.86rem;
+                font-weight: 600;
+                margin-bottom: 0.15rem;
+            }
+            .cert-by {
+                color: var(--muted);
+                font-size: 0.75rem;
+            }
 
-    </div>
-  </div>
-</section>
+            /* ─── CONTACT ─── */
+            #contact {
+                position: relative;
+                overflow: hidden;
+                background: var(--bg);
+            }
+            #contact::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background: radial-gradient(
+                    ellipse 55% 35% at 50% 100%,
+                    rgba(139, 92, 246, 0.08) 0%,
+                    transparent 70%
+                );
+            }
+            .ct-inner {
+                max-width: 640px;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
+            }
+            .ct-inner p {
+                color: var(--dim);
+                font-size: 0.97rem;
+                line-height: 1.75;
+                margin-bottom: 2.5rem;
+            }
+            .ct-links {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.9rem;
+                margin-bottom: 2rem;
+            }
+            .ct-link {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                background: var(--card);
+                border: 1px solid var(--border2);
+                color: var(--dim);
+                text-decoration: none;
+                padding: 0.8rem 1.5rem;
+                border-radius: var(--r);
+                font-size: 0.88rem;
+                font-weight: 500;
+                transition: all 0.2s;
+            }
+            .ct-link:hover {
+                border-color: var(--cyan);
+                color: var(--cyan);
+                transform: translateY(-2px);
+            }
+            .ct-link svg {
+                width: 17px;
+                height: 17px;
+                flex-shrink: 0;
+            }
+            .ct-email {
+                font-family: var(--mono);
+                font-size: 0.8rem;
+                color: var(--muted);
+                letter-spacing: 0.5px;
+            }
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container reveal">
-    <div class="section-label">03 &nbsp; Projects</div>
-    <h2 class="section-title">Things I've Built</h2>
-    <div class="projects-grid">
+            /* ─── FOOTER ─── */
+            footer {
+                background: var(--surface);
+                border-top: 1px solid var(--border);
+                padding: 1.3rem 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            .f-mono {
+                font-family: var(--mono);
+                font-size: 0.73rem;
+                color: var(--muted);
+            }
+            .f-mono em {
+                color: var(--cyan);
+                font-style: normal;
+            }
+            .f-nav {
+                display: flex;
+                gap: 1.5rem;
+            }
+            .f-nav a {
+                color: var(--muted);
+                text-decoration: none;
+                font-size: 0.8rem;
+                transition: color 0.2s;
+            }
+            .f-nav a:hover {
+                color: var(--cyan);
+            }
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/fraud-detection" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Fraud Detection System</div>
-        <div class="project-desc">
-          Real-time financial fraud detection platform with a rule-based analysis engine.
-          Transactions are streamed through RabbitMQ, analyzed for suspicious patterns,
-          and results are pushed to the frontend instantly via WebSocket. Redis handles
-          caching for high-throughput rule lookups, and all data is persisted in MongoDB.
-          Fully containerized with Docker Compose.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go</span><span class="tag">Go Fiber</span><span class="tag">WebSocket</span>
-          <span class="tag">RabbitMQ</span><span class="tag">Redis</span><span class="tag">MongoDB</span>
-          <span class="tag">Next.js</span><span class="tag">Docker</span>
-        </div>
-      </div>
+            /* ─── RESPONSIVE ─── */
+            @media (max-width: 860px) {
+                .about-wrap {
+                    grid-template-columns: 1fr;
+                }
+                .xp-card {
+                    grid-template-columns: 1fr;
+                }
+                .xp-meta {
+                    border-right: none;
+                    padding-right: 0;
+                    border-bottom: 1px solid var(--border);
+                    padding-bottom: 1rem;
+                }
+                .sk-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .edu-row {
+                    grid-template-columns: 1fr;
+                }
+                .cert-row {
+                    grid-template-columns: 1fr;
+                }
+                .featured {
+                    grid-template-columns: 1fr;
+                }
+                .f-links {
+                    flex-direction: row;
+                }
+                .featured-corner {
+                    display: none;
+                }
+            }
+            @media (max-width: 580px) {
+                nav {
+                    padding: 0.9rem 1.2rem;
+                }
+                .nav-links {
+                    display: none;
+                    flex-direction: column;
+                    gap: 0;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: rgba(3, 3, 10, 0.97);
+                    border-bottom: 1px solid var(--border);
+                    padding: 0.5rem 0;
+                }
+                .nav-links.open {
+                    display: flex;
+                }
+                .nav-links li {
+                    width: 100%;
+                }
+                .nav-links a {
+                    padding: 0.75rem 1.4rem;
+                    display: block;
+                    font-size: 0.88rem;
+                }
+                .nav-toggle {
+                    display: flex;
+                }
+                section {
+                    padding: 3.8rem 1.2rem;
+                }
+                .sk-grid {
+                    grid-template-columns: 1fr;
+                }
+                .bento {
+                    grid-template-columns: 1fr 1fr;
+                }
+                footer {
+                    flex-direction: column;
+                    text-align: center;
+                }
+            }
+            @media (max-width: 400px) {
+                .hero-name {
+                    font-size: 2.2rem;
+                }
+                .bento {
+                    grid-template-columns: 1fr;
+                }
+                .b-wide {
+                    grid-column: span 1;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ─── NAV ─── -->
+        <nav>
+            <div class="nav-brand"><em>akifhan</em><span>.dev</span></div>
+            <button
+                class="nav-toggle"
+                aria-label="Toggle navigation"
+                onclick="
+                    document
+                        .querySelector('.nav-links')
+                        .classList.toggle('open')
+                "
+            >
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#about">about</a></li>
+                <li><a href="#experience">experience</a></li>
+                <li><a href="#projects">projects</a></li>
+                <li><a href="#skills">skills</a></li>
+                <li><a href="#education">education</a></li>
+                <li><a href="#contact">contact</a></li>
+            </ul>
+        </nav>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/hedefte" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">YKS Exam Analysis Platform</div>
-        <div class="project-desc">
-          A platform where students analyze exam results for performance and topic breakdowns.
-          Features Supabase auth with JWT validation on the backend, feature-based Next.js frontend with Zod + React Hook Form,
-          and a Go (Gin) backend following Clean Architecture with MongoDB.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go</span><span class="tag">Gin</span><span class="tag">Next.js</span>
-          <span class="tag">MongoDB</span><span class="tag">Supabase</span><span class="tag">JWT</span>
-        </div>
-      </div>
+        <!-- ─── HERO ─── -->
+        <section id="hero">
+            <div class="hero-grid"></div>
+            <div class="hero-glow"></div>
+            <div class="hero-inner">
+                <div class="terminal reveal">
+                    <div class="t-bar">
+                        <div class="t-dot r"></div>
+                        <div class="t-dot y"></div>
+                        <div class="t-dot g"></div>
+                        <span class="t-title">~/workspace — zsh — 80×24</span>
+                    </div>
+                    <div class="t-body">
+                        <div class="t-row">
+                            <span class="t-p">❯</span>&nbsp;<span class="t-c"
+                                >cat about.json</span
+                            >
+                        </div>
+                        <div class="t-row"><span class="t-o">{</span></div>
+                        <div class="t-row">
+                            &nbsp;&nbsp;<span class="t-k">"name"</span
+                            ><span class="t-o">:</span>&nbsp;<span class="t-v"
+                                >"Mehmet Akifhan Ilgaz"</span
+                            ><span class="t-o">,</span>
+                        </div>
+                        <div class="t-row">
+                            &nbsp;&nbsp;<span class="t-k">"title"</span
+                            ><span class="t-o">:</span>&nbsp;<span class="t-v"
+                                >"Fullstack Developer"</span
+                            ><span class="t-o">,</span>
+                        </div>
+                        <div class="t-row">
+                            &nbsp;&nbsp;<span class="t-k">"location"</span
+                            ><span class="t-o">:</span>&nbsp;<span class="t-v"
+                                >"Ankara, Turkey 🇹🇷"</span
+                            ><span class="t-o">,</span>
+                        </div>
+                        <div class="t-row">
+                            &nbsp;&nbsp;<span class="t-k">"stack"</span
+                            ><span class="t-o">:</span>&nbsp;<span class="t-o"
+                                >[</span
+                            ><span class="t-v">"Go"</span
+                            ><span class="t-o">,</span>&nbsp;<span class="t-v"
+                                >"TypeScript"</span
+                            ><span class="t-o">,</span>&nbsp;<span class="t-v"
+                                >"Next.js"</span
+                            ><span class="t-o">,</span>&nbsp;<span class="t-v"
+                                >"Java"</span
+                            ><span class="t-o">],</span>
+                        </div>
+                        <div class="t-row">
+                            &nbsp;&nbsp;<span class="t-k">"github_repos"</span
+                            ><span class="t-o">:</span>&nbsp;<span class="t-vs"
+                                >120</span
+                            ><span class="t-o">,</span>
+                        </div>
+                        <div class="t-row">
+                            &nbsp;&nbsp;<span class="t-k">"open_to_work"</span
+                            ><span class="t-o">:</span>&nbsp;<span class="t-b"
+                                >true</span
+                            >
+                        </div>
+                        <div class="t-row"><span class="t-o">}</span></div>
+                        <div class="t-row" style="margin-top: 0.2rem">
+                            <span class="t-p">❯</span>&nbsp;<span
+                                class="t-cursor"
+                            ></span>
+                        </div>
+                    </div>
+                </div>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/oxford-5000-api" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Oxford 5000 API</div>
-        <div class="project-desc">
-          REST API and web interface providing programmatic access to Oxford 5000 vocabulary.
-          Self-built dataset via web scraping (definitions, example sentences, UK/US pronunciations).
-          Go + Gin backend with CEFR levels, part-of-speech filtering, API key management, and Swagger docs.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go</span><span class="tag">Gin</span><span class="tag">MongoDB</span>
-          <span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">Swagger</span>
-        </div>
-      </div>
+                <h1 class="hero-name reveal d1">
+                    Building <span class="grad">scalable</span><br />web
+                    applications
+                </h1>
+                <p class="hero-sub reveal d2">
+                    <strong>Go · TypeScript · Next.js · Java/Spring Boot</strong
+                    ><br />
+                    Backend APIs, real-time systems, clean architecture —<br />
+                    from database schema to deployed product.
+                </p>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/pau-watcher" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Blockchain Transaction Watcher</div>
-        <div class="project-desc">
-          Real-time blockchain monitoring tool that tracks specified wallet addresses on Base and Fantom networks.
-          Detects buy/sell transactions and sends instant Telegram notifications with token info and DexScreener links.
-          Fully configurable addresses, networks, and scan intervals.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go</span><span class="tag">Web3</span><span class="tag">Base</span>
-          <span class="tag">Fantom</span><span class="tag">Telegram Bot</span>
-        </div>
-      </div>
+                <div class="hero-btns reveal d3">
+                    <a href="#projects" class="btn btn-primary">
+                        <svg
+                            width="14"
+                            height="14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M5 12h14" />
+                            <path d="M12 5l7 7-7 7" />
+                        </svg>
+                        View Projects
+                    </a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                    <a href="cv-en.pdf" target="_blank" class="btn btn-outline">
+                        <svg
+                            width="13"
+                            height="13"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                            />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="12" y1="18" x2="12" y2="12" />
+                            <polyline points="9 15 12 18 15 15" />
+                        </svg>
+                        Resume
+                    </a>
+                </div>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/wedding-dress-backend" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Bridal AI</div>
-        <div class="project-desc">
-          AI-powered wedding dress design app where users select body type, fabric, model, and style preferences
-          to generate personalized designs. Built a custom EachLabs Go client (official SDK was outdated),
-          designed a prompt generation pipeline, and implemented rate-limiting on the backend.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go</span><span class="tag">AI/Image Gen</span><span class="tag">Next.js</span>
-          <span class="tag">React</span><span class="tag">Rate Limiting</span>
-        </div>
-      </div>
+                <div class="hero-pills reveal d4">
+                    <span class="h-pill">Go Fiber</span>
+                    <span class="h-pill">gRPC</span>
+                    <span class="h-pill">WebSocket</span>
+                    <span class="h-pill">RabbitMQ</span>
+                    <span class="h-pill">Docker</span>
+                    <span class="h-pill">MongoDB</span>
+                    <span class="h-pill">PostgreSQL</span>
+                    <span class="h-pill">Web3</span>
+                    <span class="h-pill">Clean Arch</span>
+                </div>
+            </div>
+        </section>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/crypto-platform" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Crypto &amp; FX Rate Platform</div>
-        <div class="project-desc">
-          Full-stack app showing live prices for 10 cryptocurrencies and FX rates. Backend uses Go Fiber + PostgreSQL
-          with a gRPC-based microservice in hexagonal architecture. Crypto prices pulled from 3 exchanges via CCXT,
-          FX rates from TCMB. HashiCorp Vault for secrets, Docker Compose for single-command deployment.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go Fiber</span><span class="tag">gRPC</span><span class="tag">PostgreSQL</span>
-          <span class="tag">Vault</span><span class="tag">Docker</span><span class="tag">Next.js</span>
-        </div>
-      </div>
+        <!-- ─── ABOUT ─── -->
+        <section id="about">
+            <div class="container">
+                <div class="s-head reveal">
+                    <div class="s-kicker">01&nbsp;&nbsp;About</div>
+                    <h2 class="s-title">Who I <em>Am</em></h2>
+                </div>
+                <div class="about-wrap">
+                    <div class="about-copy reveal">
+                        <p>
+                            I'm a <strong>Fullstack Developer</strong> based in
+                            Ankara, Turkey. I specialize in building
+                            production-grade web applications end-to-end —
+                            designing and implementing REST APIs, microservices,
+                            and real-time backends, then connecting them to
+                            polished, responsive frontends.
+                        </p>
+                        <p>
+                            My primary backend language is
+                            <strong>Go</strong> (Fiber, Gin), complemented by
+                            <strong>Java/Spring Boot</strong> for enterprise
+                            patterns. On the frontend I work primarily with
+                            <strong>Next.js, React, and TypeScript</strong>. I
+                            have deep hands-on experience with auth systems
+                            (JWT, Supabase, Firebase), caching (Redis),
+                            real-time messaging (WebSocket, RabbitMQ), and
+                            secret management (HashiCorp Vault).
+                        </p>
+                        <p>
+                            Beyond traditional web, I'm active in
+                            <strong>Web3</strong> — I've written and deployed
+                            Solidity smart contracts on Mande Network, built
+                            wallet-connected dApps, and stored decentralized
+                            media on IPFS. I enjoy deep-diving into architecture
+                            and shipping things that actually work in
+                            production.
+                        </p>
+                        <div class="about-tags">
+                            <span class="a-tag">🇹🇷 Turkish — Native</span>
+                            <span class="a-tag">🇬🇧 English — B2</span>
+                            <span class="a-tag">📍 Ankara, Turkey</span>
+                        </div>
+                    </div>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/credible-mandela-api" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Web3 Blog &amp; Staking Platform</div>
-        <div class="project-desc">
-          Decentralized platform on Mande Network where users connect Web3 wallets to write blog posts
-          and create mutual token staking listings. Smart contracts in Solidity, media stored on Pinata/IPFS,
-          full on-chain read/write and staking mechanism.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Solidity</span><span class="tag">Next.js</span><span class="tag">IPFS</span>
-          <span class="tag">Mande Network</span><span class="tag">Wallet Connect</span>
-        </div>
-      </div>
+                    <div class="bento reveal d1">
+                        <div class="b-card">
+                            <div class="b-num">120<sup>+</sup></div>
+                            <div class="b-label">GitHub Repos</div>
+                        </div>
+                        <div class="b-card">
+                            <div class="b-num">2<sup>+</sup></div>
+                            <div class="b-label">Years Experience</div>
+                        </div>
+                        <div class="b-card">
+                            <div class="b-num">9<sup>+</sup></div>
+                            <div class="b-label">Projects Shipped</div>
+                        </div>
+                        <div class="b-card">
+                            <div class="b-num">10<sup>+</sup></div>
+                            <div class="b-label">Core Technologies</div>
+                        </div>
+                        <div class="b-card b-wide">
+                            <div class="b-wide-inner">
+                                <div class="b-wide-icon">⚡</div>
+                                <div class="b-wide-text">
+                                    <h4>Currently Building</h4>
+                                    <p>
+                                        YKS Exam Analysis Platform — Go +
+                                        Next.js + Supabase + MongoDB
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/cizre-dernek" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">Charity Donation Site</div>
-        <div class="project-desc">
-          Modern and secure online donation platform with Iyzico payment gateway integration.
-          Supports one-time and recurring donations, receipt generation, and post-payment redirects.
-          Full payment callback handling and donation record management.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Next.js</span><span class="tag">Go</span><span class="tag">Iyzico</span>
-          <span class="tag">Payments</span>
-        </div>
-      </div>
+        <!-- ─── EXPERIENCE ─── -->
+        <section id="experience">
+            <div class="container">
+                <div class="s-head reveal">
+                    <div class="s-kicker">02&nbsp;&nbsp;Experience</div>
+                    <h2 class="s-title">Work <em>History</em></h2>
+                </div>
+                <div class="xp-list">
+                    <div class="xp-card reveal">
+                        <div class="xp-meta">
+                            <div class="xp-date">Mar 2023 — Jun 2023</div>
+                            <div class="xp-role">
+                                Freelance Fullstack Web3 Developer
+                            </div>
+                            <div class="xp-company">Mande Network</div>
+                            <span class="xp-badge freelance">Freelance</span>
+                        </div>
+                        <div class="xp-body">
+                            <ul>
+                                <li>
+                                    Built a platform where users connect Web3
+                                    wallets to publish blog posts and create
+                                    mutual token staking listings.
+                                </li>
+                                <li>
+                                    Stored media assets on Pinata/IPFS for
+                                    decentralized, censorship-resistant storage.
+                                </li>
+                                <li>
+                                    Wrote and deployed Solidity smart contracts
+                                    directly on Mande Network.
+                                </li>
+                                <li>
+                                    Implemented wallet connection flows,
+                                    on-chain read/write operations, and the full
+                                    staking mechanism.
+                                </li>
+                                <li>
+                                    Developed the frontend with Next.js and
+                                    React, connecting it to on-chain state.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/AkifhanIlgaz/multi-tenant-notes" target="_blank">GitHub</a>
-          </div>
-        </div>
-        <div class="project-name">SaaS Announcement App</div>
-        <div class="project-desc">
-          Demo SaaS announcement application exploring different multi-tenant architecture patterns.
-          Built with Go, Fiber, PostgreSQL, and JWT in a Hexagonal architecture.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Go</span><span class="tag">Fiber</span><span class="tag">PostgreSQL</span>
-          <span class="tag">Multi-tenant</span><span class="tag">JWT</span>
-        </div>
-      </div>
+                    <div class="xp-card reveal d1">
+                        <div class="xp-meta">
+                            <div class="xp-date">Jul 2023 — Jan 2024</div>
+                            <div class="xp-role">Voluntary Intern</div>
+                            <div class="xp-company">
+                                KEYDATA Bilgi Teknolojileri
+                            </div>
+                            <span class="xp-badge intern">Internship</span>
+                        </div>
+                        <div class="xp-body">
+                            <ul>
+                                <li>
+                                    Developed a mobile-first application using
+                                    Firebase Auth, Firestore, Firebase Storage,
+                                    and Google Maps API.
+                                </li>
+                                <li>
+                                    Integrated map-based location features, user
+                                    authentication, and real-time data
+                                    management with Ionic + React.
+                                </li>
+                                <li>
+                                    Built a highly responsive and performant
+                                    mobile-friendly frontend experience.
+                                </li>
+                                <li>
+                                    Developed a Revenue Module to fully digitize
+                                    the revenue management process for an
+                                    airport client.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    </div>
-  </div>
-</section>
+        <!-- ─── PROJECTS ─── -->
+        <section id="projects">
+            <div class="container">
+                <div class="s-head reveal">
+                    <div class="s-kicker">03&nbsp;&nbsp;Projects</div>
+                    <h2 class="s-title">Things I've <em>Built</em></h2>
+                </div>
 
-<!-- SKILLS -->
-<section id="skills" style="background: var(--surface);">
-  <div class="container reveal">
-    <div class="section-label">04 &nbsp; Skills</div>
-    <h2 class="section-title">Technical Stack</h2>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <div class="skill-group-title">Frontend</div>
-        <div class="skill-tags">
-          <span class="skill-tag"><i class="devicon-nextjs-plain"></i> Next.js</span>
-          <span class="skill-tag"><i class="devicon-react-original"></i> React</span>
-          <span class="skill-tag"><i class="devicon-typescript-plain"></i> TypeScript</span>
-          <span class="skill-tag"><i class="devicon-tailwindcss-plain"></i> TailwindCSS</span>
-          <span class="skill-tag"><i class="devicon-ionic-original"></i> Ionic</span>
-          <span class="skill-tag">HeroUI</span>
-          <span class="skill-tag">Zod</span>
-          <span class="skill-tag">React Query</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Backend</div>
-        <div class="skill-tags">
-          <span class="skill-tag"><i class="devicon-go-plain"></i> Go</span>
-          <span class="skill-tag"><i class="devicon-go-plain"></i> Gin</span>
-          <span class="skill-tag"><i class="devicon-go-plain"></i> Go Fiber</span>
-          <span class="skill-tag"><i class="devicon-java-plain"></i> Java</span>
-          <span class="skill-tag"><i class="devicon-spring-plain"></i> Spring Boot</span>
-          <span class="skill-tag">REST API</span>
-          <span class="skill-tag"><i class="devicon-grpc-plain"></i> gRPC</span>
-          <span class="skill-tag">Clean Architecture</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Databases</div>
-        <div class="skill-tags">
-          <span class="skill-tag"><i class="devicon-mongodb-plain"></i> MongoDB</span>
-          <span class="skill-tag"><i class="devicon-postgresql-plain"></i> PostgreSQL</span>
-          <span class="skill-tag"><i class="devicon-redis-plain"></i> Redis</span>
-          <span class="skill-tag"><i class="devicon-firebase-plain"></i> Firestore</span>
-          <span class="skill-tag"><i class="devicon-supabase-plain"></i> Supabase</span>
-          <span class="skill-tag"><i class="devicon-microsoftsqlserver-plain"></i> MS SQL Server</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Web3</div>
-        <div class="skill-tags">
-          <span class="skill-tag"><i class="devicon-solidity-plain"></i> Solidity</span>
-          <span class="skill-tag">Wallet Connect</span>
-          <span class="skill-tag">Pinata / IPFS</span>
-          <span class="skill-tag">Mande Network</span>
-          <span class="skill-tag">Smart Contracts</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Auth &amp; Security</div>
-        <div class="skill-tags">
-          <span class="skill-tag">JWT</span>
-          <span class="skill-tag">Session Auth</span>
-          <span class="skill-tag"><i class="devicon-firebase-plain"></i> Firebase Auth</span>
-          <span class="skill-tag"><i class="devicon-supabase-plain"></i> Supabase Auth</span>
-          <span class="skill-tag"><i class="devicon-vault-plain"></i> HashiCorp Vault</span>
-          <span class="skill-tag">API Keys</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">DevOps &amp; Tools</div>
-        <div class="skill-tags">
-          <span class="skill-tag"><i class="devicon-docker-plain"></i> Docker</span>
-          <span class="skill-tag"><i class="devicon-git-plain"></i> Git</span>
-          <span class="skill-tag"><i class="devicon-linux-plain"></i> Linux</span>
-          <span class="skill-tag"><i class="devicon-vercel-plain"></i> Vercel</span>
-          <span class="skill-tag"><i class="devicon-firebase-plain"></i> Firebase</span>
-          <span class="skill-tag"><i class="devicon-google-plain"></i> Google Maps API</span>
-          <span class="skill-tag">Ngrok</span>
-          <span class="skill-tag"><i class="devicon-swagger-plain"></i> Swagger</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+                <!-- Featured -->
+                <div class="featured reveal">
+                    <div class="featured-corner">Featured</div>
+                    <div>
+                        <div class="f-kicker">// featured project</div>
+                        <div class="f-name">Fraud Detection System</div>
+                        <div class="f-desc">
+                            Real-time financial fraud detection platform with a
+                            rule-based analysis engine. Transactions are
+                            streamed through
+                            <strong style="color: var(--text)">RabbitMQ</strong
+                            >, analyzed for suspicious patterns, and results are
+                            pushed to the frontend instantly via
+                            <strong style="color: var(--text)">WebSocket</strong
+                            >. Redis handles caching for high-throughput rule
+                            lookups, all data persisted in MongoDB. Fully
+                            containerized with Docker Compose for single-command
+                            deployment.
+                        </div>
+                        <div class="f-tags">
+                            <span class="f-tag">Go</span>
+                            <span class="f-tag">Go Fiber</span>
+                            <span class="f-tag">WebSocket</span>
+                            <span class="f-tag">RabbitMQ</span>
+                            <span class="f-tag">Redis</span>
+                            <span class="f-tag">MongoDB</span>
+                            <span class="f-tag">Next.js</span>
+                            <span class="f-tag">Docker Compose</span>
+                        </div>
+                    </div>
+                    <div class="f-links">
+                        <a
+                            href="https://github.com/AkifhanIlgaz/fraud-detection"
+                            target="_blank"
+                            class="gh-btn"
+                        >
+                            <svg
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                                width="15"
+                                height="15"
+                            >
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"
+                                />
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="container reveal">
-    <div class="section-label">05 &nbsp; Education</div>
-    <h2 class="section-title">Academic Background</h2>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <div class="edu-degree">Computer Programming</div>
-        <div class="edu-school">Ankara University</div>
-        <div class="edu-period">2023 – Present</div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-degree">Mechanical Engineering</div>
-        <div class="edu-school">Gazi University</div>
-        <div class="edu-period">2019 – Present</div>
-      </div>
-    </div>
+                <!-- Grid -->
+                <div class="pg">
+                    <div class="pc reveal">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                                    <path
+                                        d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"
+                                    />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/oxford-5000-api"
+                                target="_blank"
+                                class="gh-btn"
+                                >GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">Oxford 5000 API</div>
+                        <div class="pc-desc">
+                            REST API and web interface for Oxford 5000
+                            vocabulary. Self-built dataset via web scraping
+                            (definitions, UK/US pronunciations). CEFR levels,
+                            API key management, Swagger/OpenAPI docs.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Go</span
+                            ><span class="pc-tag">Gin</span
+                            ><span class="pc-tag">MongoDB</span
+                            ><span class="pc-tag">Next.js</span
+                            ><span class="pc-tag">Swagger</span>
+                        </div>
+                    </div>
 
-    <h3 style="margin: 2.5rem 0 1.2rem; font-size: 1.1rem; color: var(--muted); font-weight: 600;">Certifications</h3>
-    <div class="cert-list">
-      <div class="cert-item">
-        <div class="cert-icon">🎓</div>
-        <div>
-          <div class="cert-name">Web Development with Go</div>
-          <div class="cert-by">Jon Calhoun</div>
-        </div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-icon">🎓</div>
-        <div>
-          <div class="cert-name">Java – Spring Courses</div>
-          <div class="cert-by">Udemy · Enes Bayram</div>
-        </div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-icon">🎓</div>
-        <div>
-          <div class="cert-name">The Complete Full-Stack Web Development Bootcamp</div>
-          <div class="cert-by">Udemy · Angela Yu</div>
-        </div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-icon">🎓</div>
-        <div>
-          <div class="cert-name">React – The Complete Guide 2025 (incl. Next.js, Redux)</div>
-          <div class="cert-by">Udemy · Maximilian Schwarzmüller</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+                    <div class="pc reveal d1">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <polyline
+                                        points="22 7 13.5 15.5 8.5 10.5 2 17"
+                                    />
+                                    <polyline points="16 7 22 7 22 13" />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/crypto-platform"
+                                target="_blank"
+                                class="gh-btn"
+                                >GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">Crypto & FX Rate Platform</div>
+                        <div class="pc-desc">
+                            Live prices for 10 cryptocurrencies + FX rates. Go
+                            Fiber + gRPC microservice in hexagonal architecture.
+                            CCXT for 3 exchanges, TCMB for FX, HashiCorp Vault
+                            for secrets.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Go Fiber</span
+                            ><span class="pc-tag">gRPC</span
+                            ><span class="pc-tag">PostgreSQL</span
+                            ><span class="pc-tag">Vault</span
+                            ><span class="pc-tag">Docker</span>
+                        </div>
+                    </div>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container reveal">
-    <div class="contact-inner">
-      <div class="section-label" style="justify-content: center;">06 &nbsp; Contact</div>
-      <h2 class="section-title" style="text-align:center; margin-bottom: 1rem;">Get In Touch</h2>
-      <p>
-        I'm open to new opportunities, collaborations, and interesting projects.
-        Feel free to reach out through any of the channels below.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:akifhanilgaz@gmail.com" class="contact-link">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          akifhanilgaz@gmail.com
-        </a>
-        <a href="https://github.com/AkifhanIlgaz" target="_blank" class="contact-link">
-          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-          GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/mehmetakifhanilgaz/" target="_blank" class="contact-link">
-          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+                    <div class="pc reveal d2">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <rect
+                                        x="3"
+                                        y="3"
+                                        width="18"
+                                        height="18"
+                                        rx="2"
+                                    />
+                                    <path d="M3 9h18M9 21V9" />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/hedefte"
+                                target="_blank"
+                                class="gh-btn"
+                                >GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">YKS Exam Analysis Platform</div>
+                        <div class="pc-desc">
+                            Students analyze exam performance by topic and
+                            subject. Supabase auth with JWT public-key
+                            validation on Go backend. Feature-based Next.js
+                            frontend with Zod + React Hook Form.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Go</span
+                            ><span class="pc-tag">Gin</span
+                            ><span class="pc-tag">Next.js</span
+                            ><span class="pc-tag">Supabase</span
+                            ><span class="pc-tag">MongoDB</span>
+                        </div>
+                    </div>
 
-<footer>
-  <p>Designed &amp; built by Mehmet Akifhan Ilgaz &nbsp;·&nbsp; 2025</p>
-</footer>
+                    <div class="pc reveal">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
+                                    />
+                                    <path
+                                        d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"
+                                    />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/pau-watcher"
+                                target="_blank"
+                                class="gh-btn"
+                                >★2 GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">
+                            Blockchain Transaction Watcher
+                        </div>
+                        <div class="pc-desc">
+                            Real-time wallet monitoring on Base & Fantom
+                            networks. Detects buy/sell transactions, sends
+                            instant Telegram notifications with token info and
+                            DexScreener links. Configurable addresses and scan
+                            intervals.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Go</span
+                            ><span class="pc-tag">Web3</span
+                            ><span class="pc-tag">Base</span
+                            ><span class="pc-tag">Fantom</span
+                            ><span class="pc-tag">Telegram Bot</span>
+                        </div>
+                    </div>
 
-<script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
+                    <div class="pc reveal d1">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                    <path d="M2 17l10 5 10-5" />
+                                    <path d="M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/wedding-dress-backend"
+                                target="_blank"
+                                class="gh-btn"
+                                >GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">Bridal AI</div>
+                        <div class="pc-desc">
+                            AI-powered wedding dress design app. Custom EachLabs
+                            Go client (SDK was outdated), prompt generation
+                            pipeline, rate-limiting. Users pick body type,
+                            fabric, model, and style preferences.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Go</span
+                            ><span class="pc-tag">AI / Image Gen</span
+                            ><span class="pc-tag">Next.js</span
+                            ><span class="pc-tag">Rate Limiting</span>
+                        </div>
+                    </div>
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                    <div class="pc reveal d2">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+                                    />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/cizre-dernek"
+                                target="_blank"
+                                class="gh-btn"
+                                >GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">Charity Donation Site</div>
+                        <div class="pc-desc">
+                            Secure online donation platform with Iyzico payment
+                            gateway. Supports one-time and recurring donations,
+                            receipt generation, post-payment redirects, and full
+                            callback/validation pipeline.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Next.js</span
+                            ><span class="pc-tag">Go</span
+                            ><span class="pc-tag">Iyzico</span
+                            ><span class="pc-tag">Payments</span>
+                        </div>
+                    </div>
 
-  // Active nav link
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
-    });
-  });
-</script>
-</body>
+                    <div class="pc reveal">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                    <path
+                                        d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
+                                    />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/credible-mandela-api"
+                                target="_blank"
+                                class="gh-btn"
+                                >★1 GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">Web3 Blog & Staking Platform</div>
+                        <div class="pc-desc">
+                            Decentralized platform on Mande Network. Web3 wallet
+                            login, blog publishing, mutual token staking
+                            listings. Solidity smart contracts, media on
+                            Pinata/IPFS.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Solidity</span
+                            ><span class="pc-tag">Next.js</span
+                            ><span class="pc-tag">IPFS</span
+                            ><span class="pc-tag">Mande Network</span>
+                        </div>
+                    </div>
+
+                    <div class="pc reveal d1">
+                        <div class="pc-head">
+                            <div class="pc-icon">
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <rect
+                                        x="2"
+                                        y="7"
+                                        width="20"
+                                        height="14"
+                                        rx="2"
+                                    />
+                                    <path
+                                        d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"
+                                    />
+                                </svg>
+                            </div>
+                            <a
+                                href="https://github.com/AkifhanIlgaz/multi-tenant-notes"
+                                target="_blank"
+                                class="gh-btn"
+                                >GitHub</a
+                            >
+                        </div>
+                        <div class="pc-name">SaaS Announcement App</div>
+                        <div class="pc-desc">
+                            Demo SaaS app exploring multi-tenant architecture
+                            patterns in depth. Go Fiber, PostgreSQL, JWT in
+                            hexagonal architecture. A practical study of
+                            scalable SaaS design.
+                        </div>
+                        <div class="pc-tags">
+                            <span class="pc-tag">Go</span
+                            ><span class="pc-tag">Fiber</span
+                            ><span class="pc-tag">PostgreSQL</span
+                            ><span class="pc-tag">Multi-tenant</span
+                            ><span class="pc-tag">JWT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SKILLS ─── -->
+        <section id="skills">
+            <div class="container">
+                <div class="s-head reveal">
+                    <div class="s-kicker">04&nbsp;&nbsp;Skills</div>
+                    <h2 class="s-title">Technical <em>Stack</em></h2>
+                </div>
+                <div class="sk-grid">
+                    <div class="sk-card reveal">
+                        <div class="sk-head">
+                            <span class="sk-head-icon">🖥</span> Frontend
+                        </div>
+                        <div class="sk-pills">
+                            <span class="sk-pill">Next.js</span
+                            ><span class="sk-pill">React</span>
+                            <span class="sk-pill">TypeScript</span
+                            ><span class="sk-pill">TailwindCSS</span>
+                            <span class="sk-pill">Ionic</span
+                            ><span class="sk-pill">HeroUI</span>
+                            <span class="sk-pill">Zod</span
+                            ><span class="sk-pill">React Query</span>
+                            <span class="sk-pill">React Hook Form</span>
+                        </div>
+                    </div>
+
+                    <div class="sk-card reveal d1">
+                        <div class="sk-head">
+                            <span class="sk-head-icon">⚙️</span> Backend
+                        </div>
+                        <div class="sk-pills">
+                            <span class="sk-pill">Go</span
+                            ><span class="sk-pill">Go Fiber</span>
+                            <span class="sk-pill">Gin</span
+                            ><span class="sk-pill">Java</span>
+                            <span class="sk-pill">Spring Boot</span
+                            ><span class="sk-pill">gRPC</span>
+                            <span class="sk-pill">REST API</span
+                            ><span class="sk-pill">RabbitMQ</span>
+                            <span class="sk-pill">WebSocket</span>
+                            <span class="sk-pill">Clean Architecture</span>
+                            <span class="sk-pill">Hexagonal Architecture</span>
+                        </div>
+                    </div>
+
+                    <div class="sk-card reveal d2">
+                        <div class="sk-head">
+                            <span class="sk-head-icon">🗄</span> Databases
+                        </div>
+                        <div class="sk-pills">
+                            <span class="sk-pill">MongoDB</span
+                            ><span class="sk-pill">PostgreSQL</span>
+                            <span class="sk-pill">Redis</span
+                            ><span class="sk-pill">Firestore</span>
+                            <span class="sk-pill">Supabase</span
+                            ><span class="sk-pill">MS SQL Server</span>
+                        </div>
+                    </div>
+
+                    <div class="sk-card reveal">
+                        <div class="sk-head">
+                            <span class="sk-head-icon">🔐</span> Auth &amp;
+                            Security
+                        </div>
+                        <div class="sk-pills">
+                            <span class="sk-pill">JWT</span
+                            ><span class="sk-pill">Session Auth</span>
+                            <span class="sk-pill">Firebase Auth</span
+                            ><span class="sk-pill">Supabase Auth</span>
+                            <span class="sk-pill">HashiCorp Vault</span
+                            ><span class="sk-pill">API Keys</span>
+                        </div>
+                    </div>
+
+                    <div class="sk-card reveal d1">
+                        <div class="sk-head">
+                            <span class="sk-head-icon">⛓</span> Web3
+                        </div>
+                        <div class="sk-pills">
+                            <span class="sk-pill">Solidity</span
+                            ><span class="sk-pill">Smart Contracts</span>
+                            <span class="sk-pill">Wallet Connect</span
+                            ><span class="sk-pill">Pinata / IPFS</span>
+                            <span class="sk-pill">Mande Network</span
+                            ><span class="sk-pill">EVM</span>
+                        </div>
+                    </div>
+
+                    <div class="sk-card reveal d2">
+                        <div class="sk-head">
+                            <span class="sk-head-icon">🛠</span> DevOps &amp;
+                            Tools
+                        </div>
+                        <div class="sk-pills">
+                            <span class="sk-pill">Docker</span
+                            ><span class="sk-pill">Docker Compose</span>
+                            <span class="sk-pill">Git</span
+                            ><span class="sk-pill">Linux</span>
+                            <span class="sk-pill">Vercel</span
+                            ><span class="sk-pill">Swagger/OpenAPI</span>
+                            <span class="sk-pill">Google Maps API</span
+                            ><span class="sk-pill">Ngrok</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── EDUCATION ─── -->
+        <section id="education">
+            <div class="container">
+                <div class="s-head reveal">
+                    <div class="s-kicker">05&nbsp;&nbsp;Education</div>
+                    <h2 class="s-title">Academic <em>Background</em></h2>
+                </div>
+
+                <div class="edu-row">
+                    <div class="edu-card reveal">
+                        <div class="edu-ico">💻</div>
+                        <div>
+                            <div class="edu-degree">Computer Programming</div>
+                            <div class="edu-school">Ankara University</div>
+                            <div class="edu-period">2023 — Present</div>
+                        </div>
+                    </div>
+                    <div class="edu-card reveal d1">
+                        <div class="edu-ico">⚙️</div>
+                        <div>
+                            <div class="edu-degree">Mechanical Engineering</div>
+                            <div class="edu-school">Gazi University</div>
+                            <div class="edu-period">2019 — Present</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cert-section-title reveal">// Certifications</div>
+                <div class="cert-row reveal">
+                    <div class="cert-card">
+                        <div class="cert-pip"></div>
+                        <div>
+                            <div class="cert-name">Web Development with Go</div>
+                            <div class="cert-by">Jon Calhoun</div>
+                        </div>
+                    </div>
+                    <div class="cert-card">
+                        <div
+                            class="cert-pip"
+                            style="background: var(--violet)"
+                        ></div>
+                        <div>
+                            <div class="cert-name">Java – Spring Courses</div>
+                            <div class="cert-by">Udemy · Enes Bayram</div>
+                        </div>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-pip"></div>
+                        <div>
+                            <div class="cert-name">
+                                The Complete Full-Stack Web Development Bootcamp
+                            </div>
+                            <div class="cert-by">Udemy · Angela Yu</div>
+                        </div>
+                    </div>
+                    <div class="cert-card">
+                        <div
+                            class="cert-pip"
+                            style="background: var(--violet)"
+                        ></div>
+                        <div>
+                            <div class="cert-name">
+                                React – The Complete Guide 2025 (incl. Next.js,
+                                Redux)
+                            </div>
+                            <div class="cert-by">
+                                Udemy · Maximilian Schwarzmüller
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CONTACT ─── -->
+        <section id="contact">
+            <div class="container">
+                <div class="ct-inner">
+                    <div
+                        class="s-kicker reveal"
+                        style="justify-content: center"
+                    >
+                        06&nbsp;&nbsp;Contact
+                    </div>
+                    <h2 class="s-title reveal" style="margin-bottom: 1.1rem">
+                        Let's <em>Connect</em>
+                    </h2>
+                    <p class="reveal">
+                        I'm open to full-time roles, freelance projects, and
+                        interesting collaborations. Whether it's a complex
+                        backend architecture problem or a greenfield product —
+                        feel free to reach out.
+                    </p>
+                    <div class="ct-links reveal">
+                        <a href="mailto:akifhanilgaz@gmail.com" class="ct-link">
+                            <svg
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                                />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                            Email Me
+                        </a>
+                        <a
+                            href="https://github.com/AkifhanIlgaz"
+                            target="_blank"
+                            class="ct-link"
+                        >
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"
+                                />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a
+                            href="https://www.linkedin.com/in/mehmetakifhanilgaz/"
+                            target="_blank"
+                            class="ct-link"
+                        >
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                                />
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                    <div class="ct-email reveal">akifhanilgaz@gmail.com</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── FOOTER ─── -->
+        <footer>
+            <div class="f-mono">
+                const developer = <em>"Mehmet Akifhan Ilgaz"</em>; // 2026
+            </div>
+            <div class="f-nav">
+                <a href="cv-en.pdf" target="_blank">English CV</a>
+                <a href="cv-tr.pdf" target="_blank">Türkçe CV</a>
+                <a href="https://github.com/AkifhanIlgaz" target="_blank"
+                    >GitHub</a
+                >
+                <a
+                    href="https://www.linkedin.com/in/mehmetakifhanilgaz/"
+                    target="_blank"
+                    >LinkedIn</a
+                >
+            </div>
+        </footer>
+
+        <script>
+            // ── Scroll reveal ──
+            const io = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add("visible");
+                            io.unobserve(e.target);
+                        }
+                    });
+                },
+                { threshold: 0.08 },
+            );
+            document
+                .querySelectorAll(".reveal")
+                .forEach((el) => io.observe(el));
+
+            // Immediately show hero elements (already in viewport)
+            document
+                .querySelectorAll("#hero .reveal")
+                .forEach((el) => el.classList.add("visible"));
+
+            // ── Active nav link on scroll ──
+            const sections = document.querySelectorAll("section[id]");
+            const navAs = document.querySelectorAll(".nav-links a");
+            window.addEventListener(
+                "scroll",
+                () => {
+                    let current = "";
+                    sections.forEach((s) => {
+                        if (window.scrollY >= s.offsetTop - 140) current = s.id;
+                    });
+                    navAs.forEach((a) =>
+                        a.classList.toggle(
+                            "active",
+                            a.getAttribute("href") === "#" + current,
+                        ),
+                    );
+                },
+                { passive: true },
+            );
+
+            // ── Close mobile menu on link click ──
+            navAs.forEach((a) =>
+                a.addEventListener("click", () =>
+                    document
+                        .querySelector(".nav-links")
+                        .classList.remove("open"),
+                ),
+            );
+        </script>
+    </body>
 </html>
